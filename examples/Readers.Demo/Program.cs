@@ -46,4 +46,3 @@ namespace Kliskatek.SenseId.Sdk
         }
     }
 }
-

@@ -5,8 +5,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>Kliskatek.SenseId.Sdk</AssemblyName>
-    <RootNamespace>Kliskatek.SenseId.Sdk</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

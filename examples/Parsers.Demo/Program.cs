@@ -3,7 +3,7 @@
 using Kliskatek.SenseId.Sdk.Parsers.Common;
 using Kliskatek.SenseId.Sdk.Parsers.Rain;
 
-Console.WriteLine("Kliskatek SenseId.SDK.Parsers C# demo");
+Console.WriteLine("Kliskatek SenseId.SDK.Parsers");
 
 List<Tuple<SenseIdTag, string>> resultList = [];
 var rainEpcByteArray = new byte[] { 0x00, 0x00, 0x00, 0xF1, 0xD3, 0x01, 0x01, 0x00, 0x00, 0x01, 0x23, 0x01 };
