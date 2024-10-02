@@ -16,6 +16,7 @@
     <Description>This library provides methods to extract data enconded in SenseID tags</Description>
     <Copyright>Copyright © 2024 Kliskatek</Copyright>
     <PackageProjectUrl>www.kliskatek.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kliskatek/senseid-net-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
