@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Kliskatek.SenseId.Sdk.Readers</AssemblyName>
+    <RootNamespace>Kliskatek.SenseId.Sdk.Readers</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>SenseID.Readers</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Aritz Alonso, Ibon Zalbide</Authors>
+    <Company>Kliskatek</Company>
+    <Product>SenseID SDK</Product>
+    <Copyright>Copyright © 2024 Kliskatek</Copyright>
+    <PackageProjectUrl>www.kliskatek.com</PackageProjectUrl>
+    <Description>Provides higher level abstraction of existing readers to easily acquire data from SenseID tags.</Description>
+    <Title>A high level library of common readers to acquire data from SenseID tags</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NordicID.NurApi.Net" Version="6.0.0" />
+    <PackageReference Include="NordicID.NurApi.SerialTransport" Version="4.0.5" />
+    <PackageReference Include="OctaneSDK" Version="4.3.0" />
+    <PackageReference Include="Serilog" Version="4.0.2" />
+  </ItemGroup>
+
+</Project>

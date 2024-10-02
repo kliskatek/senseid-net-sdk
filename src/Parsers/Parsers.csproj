@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Kliskatek.SenseId.Sdk.Parsers</AssemblyName>
+    <RootNamespace>Kliskatek.SenseId.Sdk.Parsers</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>SenseID.Parsers</PackageId>
+    <Title>A library to parse SenseID data</Title>
+    <Version>1.0.0</Version>
+    <Authors>Aritz Alonso, Ibon Zalbide</Authors>
+    <Company>Kliskatek</Company>
+    <Product>SenseID SDK</Product>
+    <Description>This library provides methods to extract data enconded in SenseID tags</Description>
+    <Copyright>Copyright © 2024 Kliskatek</Copyright>
+    <PackageProjectUrl>www.kliskatek.com</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="16.0.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="../../definitions/*.yaml">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+		</Content>
+	</ItemGroup>
+
+</Project>
