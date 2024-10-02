@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SenseID.Parsers</PackageId>
     <Title>A library to parse SenseID data</Title>
-    <Version>1.0.0</Version>
+    <Version>0.1.0-alpha</Version>
     <Authors>Aritz Alonso, Ibon Zalbide</Authors>
     <Company>Kliskatek</Company>
     <Product>SenseID SDK</Product>

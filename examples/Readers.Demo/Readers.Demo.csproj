@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SenseID.Parsers" Version="1.0.0" />
-    <PackageReference Include="SenseID.Readers" Version="1.0.0" />
+    <PackageReference Include="SenseID.Parsers" Version="0.1.0-alpha" />
+    <PackageReference Include="SenseID.Readers" Version="0.1.0-alpha" />
   </ItemGroup>
 
 </Project>
