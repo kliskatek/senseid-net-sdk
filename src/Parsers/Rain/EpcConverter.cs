@@ -81,6 +81,7 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
             var senseIdTagType = senseIdDefinitions.types[senseIdTypeKey];
             return new SenseIdTag
             {
+                Technology = Technologies.Rain,
                 Id = SharedLogic.ByteArrayToHexString(senseIdTypeKey.Concat(sn).ToArray()),
                 Name = senseIdTagType.name,
                 Description = senseIdTagType.description,
