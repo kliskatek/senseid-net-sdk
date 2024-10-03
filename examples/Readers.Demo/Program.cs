@@ -4,6 +4,7 @@ using Kliskatek.SenseId.Sdk.Readers.Common;
 
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic;
+using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
 
 namespace Kliskatek.SenseId.Sdk
 {
@@ -13,12 +14,15 @@ namespace Kliskatek.SenseId.Sdk
         {
             Console.WriteLine("Kliskatek SenseID.SDK.Readers demo");
 
-            var reader = (ISenseIdReader)new OctaneReader();
-            if (!reader.Connect("192.168.17.246"))
-                return;
+            //var reader = (ISenseIdReader)new OctaneReader();
+            //if (!reader.Connect("192.168.17.246"))
+            //    return;
             //var reader = (ISenseIdReader)new NurApiReader();
             //if (!reader.Connect("ser://com9"))
             //    return;
+            var reader = (ISenseIdReader)new Red4SReader();
+            if (!reader.Connect("COM4"))
+                return;
 
             reader.StartDataAcquisitionAsync(DelegateMethod);
 
