@@ -1,6 +1,5 @@
 ﻿using System.Buffers.Binary;
 using System.Text;
-using Kliskatek.SenseId.Sdk.Parsers.Rain;
 
 namespace Kliskatek.SenseId.Sdk.Parsers.Common
 {

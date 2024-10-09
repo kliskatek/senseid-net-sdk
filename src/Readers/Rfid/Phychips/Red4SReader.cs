@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kliskatek.Driver.Rain.REDRCP;
-using Kliskatek.Driver.Rain.REDRCP.CommunicationBuses;
+﻿using Kliskatek.Driver.Rain.REDRCP;
+using Kliskatek.Driver.Rain.REDRCP.Transports;
 using Kliskatek.SenseId.Sdk.Readers.Common;
 using Newtonsoft.Json;
 
@@ -22,12 +17,18 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
             {
                 PortName = connectionString
             };
-            return _rcp.Connect(JsonConvert.SerializeObject(parameters));
+            var connectionSuccessful = _rcp.Connect(JsonConvert.SerializeObject(parameters));
+            if (connectionSuccessful)
+                _rcp.NewNotificationReceived += OnNewNotificationReceived;
+            return connectionSuccessful;
         }
 
         protected override bool DisconnectLowLevel()
         {
-            return _rcp.Disconnect();
+            var disconnectionSuccessful = _rcp.Disconnect();
+            if (disconnectionSuccessful)
+                _rcp.NewNotificationReceived -= OnNewNotificationReceived;
+            return disconnectionSuccessful;
         }
 
         protected override bool GetReaderInfo()
@@ -53,17 +54,29 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
         protected override bool StartDataAcquisitionAsyncLowLevel(SenseIdReaderCallback callback)
         {
             _callback = callback;
-            return _rcp.StartAutoRead2(AutoRead2NotificationCallback);
+            return (_rcp.StartAutoRead2() == RcpResultType.Success);
         }
 
         protected override bool StopDataAcquisitionAsyncLowLevel()
         {
-            return _rcp.StopAutoRead2();
+            return (_rcp.StopAutoRead2() == RcpResultType.Success);
         }
 
-        private void AutoRead2NotificationCallback(string pc, string epc)
+        private void OnNewNotificationReceived(object? sender, NotificationEventArgs e)
         {
-            _callback(epc);
+            switch (e.NotificationType)
+            {
+                case SupportedNotifications.ReadTypeCUii:
+                    OnReadTypeCUiiNotification((ReadTypeCUiiNotificationParameters)e.NotificationParameters);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnReadTypeCUiiNotification(ReadTypeCUiiNotificationParameters parameters)
+        {
+            _callback(parameters.Epc);
         }
     }
 }

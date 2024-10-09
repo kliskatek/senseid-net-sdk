@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kliskatek.Driver.Rain.REDRCP" Version="0.1.0-alpha" />
+    <PackageReference Include="Kliskatek.Driver.Rain.REDRCP" Version="0.2.0-alpha" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NordicID.NurApi.Net" Version="6.0.0" />
     <PackageReference Include="NordicID.NurApi.SerialTransport" Version="4.0.5" />
