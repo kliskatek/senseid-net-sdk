@@ -7,27 +7,27 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
 {
     public class Red4SReader : SenseIdReaderBase
     {
-        private REDRCP _rcp;
+        private REDRCP _reader;
         private SenseIdReaderCallback _callback;
 
         protected override bool ConnectLowLevel(string connectionString)
         {
-            _rcp = new REDRCP();
+            _reader = new REDRCP();
             SerialPortConnectionParameters parameters = new SerialPortConnectionParameters
             {
                 PortName = connectionString
             };
-            var connectionSuccessful = _rcp.Connect(JsonConvert.SerializeObject(parameters));
+            var connectionSuccessful = _reader.Connect(JsonConvert.SerializeObject(parameters));
             if (connectionSuccessful)
-                _rcp.NewNotificationReceived += OnNewNotificationReceived;
+                _reader.NewNotificationReceived += OnNewNotificationReceived;
             return connectionSuccessful;
         }
 
         protected override bool DisconnectLowLevel()
         {
-            var disconnectionSuccessful = _rcp.Disconnect();
+            var disconnectionSuccessful = _reader.Disconnect();
             if (disconnectionSuccessful)
-                _rcp.NewNotificationReceived -= OnNewNotificationReceived;
+                _reader.NewNotificationReceived -= OnNewNotificationReceived;
             return disconnectionSuccessful;
         }
 
@@ -54,12 +54,12 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
         protected override bool StartDataAcquisitionAsyncLowLevel(SenseIdReaderCallback callback)
         {
             _callback = callback;
-            return (_rcp.StartAutoRead2() == RcpResultType.Success);
+            return (_reader.StartAutoRead2() == RcpResultType.Success);
         }
 
         protected override bool StopDataAcquisitionAsyncLowLevel()
         {
-            return (_rcp.StopAutoRead2() == RcpResultType.Success);
+            return (_reader.StopAutoRead2() == RcpResultType.Success);
         }
 
         private void OnNewNotificationReceived(object? sender, NotificationEventArgs e)

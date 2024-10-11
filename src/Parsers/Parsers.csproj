@@ -8,9 +8,9 @@
     <RootNamespace>Kliskatek.SenseId.Sdk.Parsers</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SenseID.Parsers</PackageId>
-    <Title>A library to parse SenseID data</Title>
-    <Version>0.1.0-alpha</Version>
-    <Authors>Aritz Alonso, Ibon Zalbide</Authors>
+    <Title>A library to parse SenseID tag data</Title>
+    <Version>0.2.0-alpha</Version>
+    <Authors>aritz.alonso.kliskatek, ibon.zalbide</Authors>
     <Company>Kliskatek</Company>
     <Product>SenseID SDK</Product>
     <Description>This library provides methods to extract data enconded in SenseID tags</Description>
@@ -18,6 +18,8 @@
     <PackageProjectUrl>www.kliskatek.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kliskatek/senseid-net-sdk</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,20 @@
 			<Pack>true</Pack>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>

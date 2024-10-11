@@ -8,8 +8,8 @@
     <RootNamespace>Kliskatek.SenseId.Sdk.Readers</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SenseID.Readers</PackageId>
-    <Version>0.1.0-alpha</Version>
-    <Authors>Aritz Alonso, Ibon Zalbide</Authors>
+    <Version>0.2.0-alpha</Version>
+    <Authors>aritz.alonso.kliskatek, ibon.zalbide</Authors>
     <Company>Kliskatek</Company>
     <Product>SenseID SDK</Product>
     <Copyright>Copyright © 2024 Kliskatek</Copyright>
@@ -17,15 +17,32 @@
     <Description>Provides higher level abstraction of existing readers to easily acquire data from SenseID tags.</Description>
     <Title>A high level library of common readers to acquire data from SenseID tags</Title>
     <RepositoryUrl>https://github.com/kliskatek/senseid-net-sdk</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kliskatek.Driver.Rain.REDRCP" Version="0.2.0-alpha" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NordicID.NurApi.Net" Version="6.0.0" />
     <PackageReference Include="NordicID.NurApi.SerialTransport" Version="4.0.5" />
     <PackageReference Include="OctaneSDK" Version="4.3.0" />
+    <PackageReference Include="REDRCP" Version="0.9.0-alpha" />
     <PackageReference Include="Serilog" Version="4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
