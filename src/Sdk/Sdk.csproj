@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>SenseID.SDK</PackageId>
+    <Title>SenseID SDK</Title>
+    <Version>0.1.0-alpha</Version>
+    <Authors>aritz.alonso.kliskatek, ibon.zalbide</Authors>
+    <Company>Kliskatek</Company>
+    <Product>SenseID SDK</Product>
+    <Description>SenseID software development kit library</Description>
+    <Copyright>Copyright © 2024 Kliskatek</Copyright>
+    <PackageProjectUrl>www.kliskatek.com</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kliskatek/senseid-net-sdk</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SenseID.Parsers" Version="0.2.0-alpha" />
+    <PackageReference Include="SenseID.Readers" Version="0.1.0-alpha" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
