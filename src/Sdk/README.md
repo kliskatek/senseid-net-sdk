@@ -1,4 +1,8 @@
 # SenseID.SDK
+
+![NuGet Version](https://img.shields.io/nuget/v/SenseID.SDK)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/SenseID.SDK.svg)](https://www.nuget.org/packages/SenseID.SDK/)
+
 SenseID software development kit library
 
 ## Table of Contents
@@ -19,8 +23,8 @@ dotnet add package SenseID.SDK
 
 The following libraries are included in the SDK
 
-* [SenseID.Parsers)(https://www.nuget.org/packages/SenseID.Parsers) A library to parse SenseID tag data
-* [SenseID.Readers]((https://www.nuget.org/packages/SenseID.Readers) A high level library to adquire data from SenseID tags using common readers.
+* [SenseID.Parsers](https://www.nuget.org/packages/SenseID.Parsers) A library to parse SenseID tag data
+* [SenseID.Readers](https://www.nuget.org/packages/SenseID.Readers) A high level library to adquire data from SenseID tags using common readers.
 
 
 ## License
