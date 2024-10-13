@@ -26,6 +26,7 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
             Id = newTagData.Id;
             Description = newTagData.Description;
             Data = newTagData.Data;
+            FirmwareVersion = newTagData.FirmwareVersion;
         }
     }
 }
