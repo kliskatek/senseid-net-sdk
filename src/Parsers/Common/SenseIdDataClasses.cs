@@ -15,6 +15,7 @@
         public string? Name { get; set; }
         public string? Description { get; set; }
         public SenseIdData[]? Data { get; set; }
+        public byte FirmwareVersion { get; set; }
     }
 
     public class SenseIdTagType
@@ -22,6 +23,7 @@
         public string name { get; set; }
         public string description { get; set; }
         public SenseIdDataDefinitions[] data_def { get; set; }
+        public byte[] fw_versions { get; set; }
     }
 
     public class SenseIdDataDefinitions

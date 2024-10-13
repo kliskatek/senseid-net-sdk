@@ -22,8 +22,18 @@ resultList.Add(new Tuple<SenseIdTag, string>(rainEpcHexString.ToRainSenseIdTag()
 // Display all parsed results
 foreach (var result in resultList)
 {
-    Console.WriteLine("\n" + result.Item2);
-    Console.WriteLine($"ID = {result.Item1.Id} [{result.Item1.Technology} : {result.Item1.Name} , {result.Item1.Description}]");
-    foreach (var dataResult in result.Item1.Data)
-        Console.WriteLine($"   * {dataResult.Magnitude} = {dataResult.Value} {dataResult.UnitShort}");
+    var senseIdTag = result.Item1;
+    var testType = result.Item2;
+
+    Console.WriteLine("\n" + testType);
+    Console.WriteLine($" * ID               : {senseIdTag.Id}");
+    Console.WriteLine($" * Name             : {senseIdTag.Name}");
+    Console.WriteLine($" * Description      : {senseIdTag.Description}");
+    if (senseIdTag.Data is null)
+        continue;
+    Console.WriteLine($" * Technology       : {senseIdTag.Technology}");
+    Console.WriteLine($" * Firmware version : {senseIdTag.FirmwareVersion}");
+    Console.WriteLine(" * Data");
+    foreach (var dataResult in senseIdTag.Data)
+        Console.WriteLine($"   - {dataResult.Magnitude} = {dataResult.Value} {dataResult.UnitShort}");
 }

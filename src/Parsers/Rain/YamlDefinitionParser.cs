@@ -55,7 +55,7 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
                 var index = item.i;
                 tmpDefinitions.pen_header[index] = Convert.ToByte(intByte);
             }
-            tmpDefinitions.types = new Dictionary<byte[], SenseIdTagType>();
+            tmpDefinitions.types = new Dictionary<byte, SenseIdTagType>();
             foreach (var inputTypeData in rawData.types)
             {
                 var originalKey = inputTypeData.Key;
@@ -63,12 +63,16 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
 
                 if (!SharedLogic.IsHexString(originalKey))
                     continue;
-                var newKey = Convert.FromHexString(SharedLogic.RemoveHeadingText(originalKey, "0x").ToUpper());
+                var rawKey = Convert.FromHexString(SharedLogic.RemoveHeadingText(originalKey, "0x").ToUpper());
+                if (rawKey.Length > 1)
+                    continue;
+                var newKey = rawKey[0];
 
                 var newValue = new SenseIdTagType
                 {
                     name = originalValue.name,
-                    description = originalValue.description
+                    description = originalValue.description,
+                    fw_versions = originalValue.fw_versions,
                 };
 
                 var dataDefList = new List<SenseIdDataDefinitions>();

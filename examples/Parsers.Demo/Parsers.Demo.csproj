@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SenseID.Parsers" Version="0.1.0-alpha" />
+    <ProjectReference Include="..\..\src\Parsers\Parsers.csproj" />
   </ItemGroup>
 
 </Project>

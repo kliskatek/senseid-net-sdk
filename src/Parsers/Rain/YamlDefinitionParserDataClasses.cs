@@ -15,6 +15,7 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
         public string name { get; set; }
         public string description { get; set; }
         public RawSenseIdDataDefinitions[] data_def { get; set; }
+        public byte[] fw_versions { get; set; }
     }
 
     internal class RawSenseIdDataDefinitions
@@ -32,6 +33,6 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
         public string version { get; set; }
         public DateTime date { get; set; }
         public byte[] pen_header { get; set; }
-        public Dictionary<byte[], SenseIdTagType> types { get; set; }
+        public Dictionary<byte, SenseIdTagType> types { get; set; }
     }
 }

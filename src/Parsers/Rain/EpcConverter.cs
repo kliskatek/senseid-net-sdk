@@ -14,16 +14,32 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
             return SharedLogic.AreByteArrayHeadersEqual(penHeader, epc);
         }
 
-        private static bool _isSenseIdTypeValid(byte[] epcSlice, out byte[] senseIdType)
+        private static bool _isSenseIdTypeValid(byte testSenseIdType, out byte senseIdType)
         {
             var senseIdTypeDefinitionDictionary = RainSenseIdDefinitions.Definitions.types;
-            senseIdType = new byte[] { 10, 10, 13 };
+            senseIdType = 0x00;
             foreach (var item in senseIdTypeDefinitionDictionary)
             {
                 var testType = item.Key;
-                if (SharedLogic.AreByteArrayHeadersEqual(epcSlice, testType))
+                if (testSenseIdType == testType)
                 {
                     senseIdType = testType;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool _isFirmwareVersionValid(byte testFirmwareVersion, byte senseIdType,
+            out byte firmwareVersion)
+        {
+            firmwareVersion = 0x00;
+            var availableFirmwares = RainSenseIdDefinitions.Definitions.types[senseIdType].fw_versions;
+            foreach (var senseIdFwVersion in availableFirmwares)
+            {
+                if (testFirmwareVersion == senseIdFwVersion)
+                {
+                    firmwareVersion = senseIdFwVersion;
                     return true;
                 }
             }
@@ -69,23 +85,31 @@ namespace Kliskatek.SenseId.Sdk.Parsers.Rain
 
             var epcNoPen = SharedLogic.GetArraySlice(epc, senseIdDefinitions.pen_header.Length);
 
-            if (!_isSenseIdTypeValid(epcNoPen, out byte[] senseIdTypeKey))
+            if (!_isSenseIdTypeValid(epcNoPen.First(), out var senseIdTypeKey))
                 return _getDefaultIdTag(epc);
 
-            var epcNoPenNoType = SharedLogic.GetArraySlice(epcNoPen, senseIdTypeKey.Length);
+            var epcNoPenNoType = SharedLogic.GetArraySlice(epcNoPen, sizeof(byte));
 
-            if (!_tryGetSerialNumber(epcNoPenNoType, out byte[] sn))
+            if (!_isFirmwareVersionValid(epcNoPenNoType.First(), senseIdTypeKey, out var firmwareVersion))
                 return _getDefaultIdTag(epc);
 
-            var senseIdEpcData = SharedLogic.GetArraySlice(epcNoPenNoType, sn.Length);
+            var epcNoPenNoTypeNoFirmware = SharedLogic.GetArraySlice(epcNoPenNoType, sizeof(byte));
+
+
+            if (!_tryGetSerialNumber(epcNoPenNoTypeNoFirmware, out byte[] sn))
+                return _getDefaultIdTag(epc);
+
+            var senseIdEpcData = SharedLogic.GetArraySlice(epcNoPenNoTypeNoFirmware, sn.Length);
             var senseIdTagType = senseIdDefinitions.types[senseIdTypeKey];
+
             return new SenseIdTag
             {
                 Technology = Technologies.Rain,
-                Id = SharedLogic.ByteArrayToHexString(senseIdTypeKey.Concat(sn).ToArray()),
+                Id = SharedLogic.ByteArrayToHexString((new[] { senseIdTypeKey, firmwareVersion }).Concat(sn).ToArray()),
                 Name = senseIdTagType.name,
                 Description = senseIdTagType.description,
-                Data = _getSenseIdData(senseIdEpcData, senseIdTagType.data_def)
+                Data = _getSenseIdData(senseIdEpcData, senseIdTagType.data_def),
+                FirmwareVersion = firmwareVersion
             };
         }
 
