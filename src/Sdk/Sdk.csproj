@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SenseID.SDK</PackageId>
     <Title>SenseID SDK</Title>
-    <Version>0.3.0-alpha</Version>
+    <Version>0.4.0-alpha</Version>
     <Authors>aritz.alonso.kliskatek, ibon.zalbide</Authors>
     <Company>Kliskatek</Company>
     <Product>SenseID SDK</Product>
@@ -38,5 +38,12 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="../../definitions/*.yaml">
+  	  <Pack>true</Pack>
+	  <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>  
 
 </Project>
