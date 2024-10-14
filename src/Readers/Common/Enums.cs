@@ -27,4 +27,12 @@ namespace Kliskatek.SenseId.Sdk.Readers.Common
         Idle,
         BusyInventory
     }
+
+    public enum ReaderLibraries
+    {
+        Unknown,
+        NurApi,
+        Octane,
+        RedRcp
+    }
 }

@@ -3,6 +3,7 @@ using Kliskatek.SenseId.Sdk.Readers.Common;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
+using Kliskatek.SenseId.Sdk.Readers.Scanner;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Demo
 {
@@ -11,6 +12,17 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
         static void Main(string[] args)
         {
             Console.WriteLine("Kliskatek SenseID.SDK.Readers demo");
+            bool scanForReaders = true;
+            if (scanForReaders)
+            {
+                ReaderScanner readerScanner = new ReaderScanner();
+                readerScanner.StartDiscovery();
+
+                Thread.Sleep(10000);
+                readerScanner.StopDiscovery();
+                var foundReaders = readerScanner.GetFoundReaders();
+                return;
+            }
 
             //var reader = (ISenseIdReader)new OctaneReader();
             //if (!reader.Connect("192.168.17.246"))
