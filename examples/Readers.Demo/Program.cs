@@ -1,9 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Kliskatek.SenseId.Sdk.Parsers.Rain;
+﻿using Kliskatek.SenseId.Sdk.Parsers.Rain;
 using Kliskatek.SenseId.Sdk.Readers.Common;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
 
-namespace Kliskatek.SenseId.Sdk
+namespace Kliskatek.SenseId.Sdk.Readers.Demo
 {
     internal class Program
     {

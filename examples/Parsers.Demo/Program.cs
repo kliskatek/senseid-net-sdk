@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Kliskatek.SenseId.Sdk.Parsers.Common;
+﻿using Kliskatek.SenseId.Sdk.Parsers.Common;
 using Kliskatek.SenseId.Sdk.Parsers.Rain;
 
 Console.WriteLine("Kliskatek SenseId.SDK.Parsers");

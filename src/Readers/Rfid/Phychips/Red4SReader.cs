@@ -17,10 +17,28 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
             {
                 PortName = connectionString
             };
-            var connectionSuccessful = _reader.Connect(JsonConvert.SerializeObject(parameters));
-            if (connectionSuccessful)
-                _reader.NewNotificationReceived += OnNewNotificationReceived;
-            return connectionSuccessful;
+            if (!_reader.Connect(JsonConvert.SerializeObject(parameters)))
+                return false;
+            _reader.NewNotificationReceived += OnNewNotificationReceived;
+            if (!SetQueryDefaultParameters())
+                return false;
+                
+            return true;
+        }
+
+        private bool SetQueryDefaultParameters()
+        {
+            return (_reader.SetTypeCaiQueryParameters(new TypeCaiQueryParameters
+            {
+                Dr = ParamDr.Dr8,
+                Modulation = ParamModulation.Miller4,
+                TRext = true,
+                Sel = ParamSel.All0,
+                Session = ParamSession.S0,
+                Target = ParamTarget.A,
+                Toggle = ParamToggle.EveryInventoryRound,
+                Q = 4
+            }) == RcpResultType.Success);
         }
 
         protected override bool DisconnectLowLevel()
@@ -35,20 +53,37 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
         {
             ReaderInfo = new SenseIdReaderInfo();
             ReaderInfo.AntennaCount = 1;
+            if (_reader.GetReaderInformationFirmwareVersion(out var firmwareVersion) != RcpResultType.Success)
+                return false;
+            ReaderInfo.FirmwareVersion = firmwareVersion;
+            if (_reader.GetReaderInformationDetails(out var details) != RcpResultType.Success)
+                return false;
+            ReaderInfo.MaxTxPower = (float)details.MaxTxPower;
+            ReaderInfo.MinTxPower = (float)details.MinTxPower;
+            ReaderInfo.Region = details.Region.ToString();
+            if (_reader.GetReaderInformationReaderModel(out var model) != RcpResultType.Success)
+                return false;
+            ReaderInfo.ModelName = model;
             return true;
-            throw new NotImplementedException();
         }
 
         protected override bool SetTxPowerLowLevel(float txPower)
         {
-            return true;
-            throw new NotImplementedException();
+            return _reader.SetTxPowerLevel(txPower) == RcpResultType.Success;
         }
 
         protected override bool SetAntennaConfigLowLevel(bool[] antennaConfigArray)
         {
-            return true;
-            throw new NotImplementedException();
+            var antennaSequence = new List<byte>();
+            byte antennaEnableMask = 0x01;
+            int antennaIndex = 0;
+            foreach (var antenna in antennaConfigArray)
+            {
+                if (antenna)
+                    antennaSequence.Add((byte)(antennaEnableMask << antennaIndex));
+                antennaIndex++;
+            }
+            return (_reader.SetMultiAntennaSequence(antennaSequence) == RcpResultType.Success);
         }
 
         protected override bool StartDataAcquisitionAsyncLowLevel(SenseIdReaderCallback callback)
