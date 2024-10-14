@@ -1,5 +1,7 @@
 ﻿using Kliskatek.SenseId.Sdk.Parsers.Rain;
 using Kliskatek.SenseId.Sdk.Readers.Common;
+using Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic;
+using Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj;
 using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Demo

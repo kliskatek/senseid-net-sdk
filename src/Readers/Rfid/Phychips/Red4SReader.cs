@@ -30,11 +30,11 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
         {
             return (_reader.SetTypeCaiQueryParameters(new TypeCaiQueryParameters
             {
-                Dr = ParamDr.Dr8,
+                Dr = ParamDr.Dr64Div3,
                 Modulation = ParamModulation.Miller4,
-                TRext = true,
+                TRext = false,
                 Sel = ParamSel.All0,
-                Session = ParamSession.S0,
+                Session = ParamSession.S1,
                 Target = ParamTarget.A,
                 Toggle = ParamToggle.EveryInventoryRound,
                 Q = 4
