@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Readers\Readers.csproj" />
+    <PackageReference Include="SenseID.Readers" Version="1.0.0-rc2" />
   </ItemGroup>
 
 </Project>

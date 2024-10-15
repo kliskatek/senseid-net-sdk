@@ -30,14 +30,6 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
 
         private bool SetAntiCollisionMode()
         {
-            var result = _reader.SetAntiCollisionMode(new AntiCollisionModeParameters
-            {
-                Mode = AntiCollisionMode.Manual,
-                QStart = 4,
-                QMin = 2,
-                QMax = 7
-            });
-            var error = _reader.GetLastError();
             return (_reader.SetAntiCollisionMode(new AntiCollisionModeParameters
             {
                 Mode = AntiCollisionMode.Manual,

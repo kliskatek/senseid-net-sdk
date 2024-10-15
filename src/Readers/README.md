@@ -41,13 +41,13 @@ public interface ISenseIdReader
 }
 ```
 
-The following table lists the classes that implement _ISenseIdReader_ 
+The following table lists the reader classes that implement _ISenseIdReader_ 
 
-| Technology | Manufacturer | Reader/SDK | SenseID.Readers class    |
-|:----------:|:------------:|:----------:|:------------------------:|
-| Rain       | Impinj       | Octane     | SenseIdOctaneReader      |
-| Rain       | NordicID     | NurApi     | SenseIdNurApiReader      |
-| Rain       | Phychips     | REDRCP     | SenseIdRedRcpRed4SReader |
+| Technology | Manufacturer | Reader API/protocol/library | SenseID.Readers class    |
+|:----------:|:------------:|:---------------------------:|:------------------------:|
+| Rain       | Impinj       | Octane                      | SenseIdOctaneReader      |
+| Rain       | NordicID     | NurApi                      | SenseIdNurApiReader      |
+| Rain       | Phychips     | REDRCP                      | SenseIdRedRcpRed4SReader |
 
 ### Data acquisition example
 
@@ -92,7 +92,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
 
 ## Reader scanner
 
-The library contains a scanner class that helps identifying supported readers attached to the computer or the LAN.
+The library contains a scanner class that helps find supported readers connected to the computer or in the same LAN.
 
 The following code shows how to instantiate the scanner and start and stop the scanning process.
 
@@ -105,7 +105,7 @@ scanner.StartScan();
 scanner.StopScan();
 ```
 
-The scanner object notifies that a new reader has been found by means of a event:
+The scanner invokes the _NewReaderFound_ event to notify that a new reader has been found.
 
 ```csharp
 scanner.NewReaderFound += OnNewReaderFound;
@@ -116,7 +116,7 @@ private static void OnNewReaderFound(object sender, FoundReaderEventArgs e)
 }
 ```
 
-It is possible to get the found reader list of the scanner object at any moment by calling the _GetFoundReaders_ method
+It is possible to get a list containing all found readers at any moment by calling the _GetFoundReaders_ method.
 
 ```csharp
 var foundReaders = scanner.GetFoundReaders();
