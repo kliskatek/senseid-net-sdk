@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SenseID.SDK</PackageId>
     <Title>SenseID SDK</Title>
-    <Version>0.4.0-alpha</Version>
+    <Version>1.0.0-rc1</Version>
     <Authors>aritz.alonso.kliskatek, ibon.zalbide</Authors>
     <Company>Kliskatek</Company>
     <Product>SenseID SDK</Product>
@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SenseID.Parsers" Version="0.2.0-alpha" />
-    <PackageReference Include="SenseID.Readers" Version="0.2.0-alpha" />
+    <PackageReference Include="SenseID.Parsers" Version="1.0.0-rc1" />
+    <PackageReference Include="SenseID.Readers" Version="1.0.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>
