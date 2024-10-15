@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kliskatek.SenseId.Sdk.Readers.Scanner
+﻿namespace Kliskatek.SenseId.Sdk.Readers.Scanner
 {
     public class ReaderScanner : IScanner
     {
@@ -16,22 +10,22 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             _scannerList.Add(new SerialPortScanner());
         }
 
-        public bool StartDiscovery()
+        public bool StartScan()
         {
             foreach (var scanner in _scannerList)
             {
                 scanner.NewReaderFound += OnNewReaderFound;
-                scanner.StartDiscovery();
+                scanner.StartScan();
             }
             return true;
         }
 
-        public bool StopDiscovery()
+        public bool StopScan()
         {
             foreach (var scanner in _scannerList)
             {
                 scanner.NewReaderFound -= OnNewReaderFound;
-                scanner.StopDiscovery();
+                scanner.StopScan();
             }
             return true;
         }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.IO.Ports;
-using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using Kliskatek.SenseId.Sdk.Readers.Common;
@@ -20,7 +17,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
         private readonly object _dictionaryAccess = new();
 
 
-        public bool StartDiscovery()
+        public bool StartScan()
         {
             _scanCancellationTokenSource = new CancellationTokenSource();
             _scanCancellationToken = _scanCancellationTokenSource.Token;
@@ -29,7 +26,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             return true;
         }
 
-        public bool StopDiscovery()
+        public bool StopScan()
         {
             _scanCancellationTokenSource.Cancel();
             return true;

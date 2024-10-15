@@ -1,11 +1,6 @@
 ﻿using Kliskatek.SenseId.Sdk.Readers.Common;
 using Serilog;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tmds.MDns;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Scanner
@@ -20,7 +15,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
 
         private readonly object _dictionaryAccess = new();
 
-        public bool StartDiscovery()
+        public bool StartScan()
         {
             try
             {
@@ -39,7 +34,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             }
         }
 
-        public bool StopDiscovery()
+        public bool StopScan()
         {
             try
             {
