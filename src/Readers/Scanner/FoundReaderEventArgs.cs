@@ -7,10 +7,9 @@ using Kliskatek.SenseId.Sdk.Readers.Common;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Scanner
 {
-    public class ReaderFoundNotificationEventArgs : EventArgs
+    public class FoundReaderEventArgs : EventArgs
     {
-        public ReaderLibraries ReaderLibrary;
-        public string ReaderName;
+        public SupportedReaderLibraries ReaderType;
         public string ConnectionString;
     }
 }

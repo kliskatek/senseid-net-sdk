@@ -16,7 +16,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
         private CancellationTokenSource _scanCancellationTokenSource;
         private CancellationToken _scanCancellationToken;
 
-        private ConcurrentDictionary<string, ReaderFoundNotificationEventArgs> _foundReaders = new();
+        private ConcurrentDictionary<string, FoundReaderEventArgs> _foundReaders = new();
         private readonly object _dictionaryAccess = new();
 
 
@@ -77,37 +77,35 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
                             var portDescription = components[1];
 
                             if (portDescription.Contains("Silicon Lab"))
-                                TryAddNewFoundReader(ReaderLibraries.RedRcp, portName, "RED4S");
+                                TryAddNewFoundReader(SupportedReaderLibraries.RedRcp, portName);
                             if (portDescription.Contains("NUR Module"))
-                                TryAddNewFoundReader(ReaderLibraries.NurApi, portName, "Stix");
+                                TryAddNewFoundReader(SupportedReaderLibraries.NurApi, portName);
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    Log.Warning(e, "Exception thrown");
                 }
             }
         }
 
-        private void TryAddNewFoundReader(ReaderLibraries readerLibrary, string serialPort, string readerName)
+        private void TryAddNewFoundReader(SupportedReaderLibraries supportedReaderLibrary, string serialPort)
         {
             var connectionString = string.Empty;
             // convert serial port to URI in case of NurApi
-            switch (readerLibrary)
+            switch (supportedReaderLibrary)
             {
-                case ReaderLibraries.NurApi:
+                case SupportedReaderLibraries.NurApi:
                     connectionString = "ser://" + serialPort.ToLower();
                     break;
                 default:
                     connectionString = serialPort;
                     break;
             }
-            var readerFoundArguments = new ReaderFoundNotificationEventArgs
+            var readerFoundArguments = new FoundReaderEventArgs
             {
-                ReaderLibrary = readerLibrary,
-                ReaderName = readerName,
+                ReaderType = supportedReaderLibrary,
                 ConnectionString = connectionString
             };
             lock (_dictionaryAccess)
@@ -118,12 +116,12 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             NewReaderFound?.Invoke(this, readerFoundArguments);
         }
 
-        public event EventHandler<ReaderFoundNotificationEventArgs>? NewReaderFound;
-        public List<ReaderFoundNotificationEventArgs> GetFoundReaders()
+        public event EventHandler<FoundReaderEventArgs>? NewReaderFound;
+        public List<FoundReaderEventArgs> GetFoundReaders()
         {
             lock (_dictionaryAccess)
             {
-                var returnList = new List<ReaderFoundNotificationEventArgs>();
+                var returnList = new List<FoundReaderEventArgs>();
                 foreach (var key in _foundReaders.Keys)
                     returnList.Add(_foundReaders[key]);
                 return returnList;

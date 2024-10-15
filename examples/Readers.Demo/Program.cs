@@ -18,7 +18,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
                 ReaderScanner readerScanner = new ReaderScanner();
                 readerScanner.StartDiscovery();
 
-                Thread.Sleep(10000);
+                Thread.Sleep(20000);
                 readerScanner.StopDiscovery();
                 var foundReaders = readerScanner.GetFoundReaders();
                 return;

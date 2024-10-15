@@ -36,16 +36,16 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             return true;
         }
 
-        public event EventHandler<ReaderFoundNotificationEventArgs>? NewReaderFound;
-        public List<ReaderFoundNotificationEventArgs> GetFoundReaders()
+        public event EventHandler<FoundReaderEventArgs>? NewReaderFound;
+        public List<FoundReaderEventArgs> GetFoundReaders()
         {
-            List<ReaderFoundNotificationEventArgs> returnList = [];
+            List<FoundReaderEventArgs> returnList = [];
             foreach (var scanner in _scannerList)
                 returnList.AddRange(scanner.GetFoundReaders());
             return returnList;
         }
 
-        private void OnNewReaderFound(object sender, ReaderFoundNotificationEventArgs e)
+        private void OnNewReaderFound(object sender, FoundReaderEventArgs e)
         {
             NewReaderFound?.Invoke(this, e);
         }

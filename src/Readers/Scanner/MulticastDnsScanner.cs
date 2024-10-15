@@ -14,9 +14,9 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
     {
         private readonly ServiceBrowser _serviceBrowser = new ServiceBrowser();
         private readonly List<string> _serviceType = new List<string> { "_llrp._tcp" };
-        // private List<ReaderFoundNotificationEventArgs> _foundReaders = [];
+        // private List<FoundReaderEventArgs> _foundReaders = [];
 
-        private ConcurrentDictionary<string, ReaderFoundNotificationEventArgs> _foundReaders = new();
+        private ConcurrentDictionary<string, FoundReaderEventArgs> _foundReaders = new();
 
         private readonly object _dictionaryAccess = new();
 
@@ -57,12 +57,12 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             }
         }
 
-        public event EventHandler<ReaderFoundNotificationEventArgs>? NewReaderFound;
-        public List<ReaderFoundNotificationEventArgs> GetFoundReaders()
+        public event EventHandler<FoundReaderEventArgs>? NewReaderFound;
+        public List<FoundReaderEventArgs> GetFoundReaders()
         {
             lock (_dictionaryAccess)
             {
-                var returnList = new List<ReaderFoundNotificationEventArgs>();
+                var returnList = new List<FoundReaderEventArgs>();
                 foreach (var key in _foundReaders.Keys)
                     returnList.Add(_foundReaders[key]);
                 return returnList;
@@ -76,18 +76,17 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
             if (!name.ToUpper().Contains("SPEEDWAY"))
                 return;
 
-            ReaderFoundNotificationEventArgs readerFoundArguments = new ReaderFoundNotificationEventArgs
+            FoundReaderEventArgs foundReaderFoundArguments = new FoundReaderEventArgs
             {
-                ReaderLibrary = ReaderLibraries.Octane,
-                ReaderName = "Speedway",
+                ReaderType = SupportedReaderLibraries.Octane,
                 ConnectionString = dev.Addresses[0].ToString()
             };
             lock (_dictionaryAccess)
             {
-                if (!_foundReaders.TryAdd(readerFoundArguments.ConnectionString, readerFoundArguments))
+                if (!_foundReaders.TryAdd(foundReaderFoundArguments.ConnectionString, foundReaderFoundArguments))
                     return;
             }
-            NewReaderFound?.Invoke(this, readerFoundArguments);
+            NewReaderFound?.Invoke(this, foundReaderFoundArguments);
         }
 
         private void OnServiceChanged(object sender, ServiceAnnouncementEventArgs e)

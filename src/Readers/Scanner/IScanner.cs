@@ -12,8 +12,8 @@ namespace Kliskatek.SenseId.Sdk.Readers.Scanner
 
         bool StopDiscovery();
 
-        event EventHandler<ReaderFoundNotificationEventArgs> NewReaderFound;
+        event EventHandler<FoundReaderEventArgs> NewReaderFound;
 
-        List<ReaderFoundNotificationEventArgs> GetFoundReaders();
+        List<FoundReaderEventArgs> GetFoundReaders();
     }
 }
