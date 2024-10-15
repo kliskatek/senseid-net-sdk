@@ -1,10 +1,8 @@
 ﻿using Kliskatek.SenseId.Sdk.Parsers.Rain;
 using Kliskatek.SenseId.Sdk.Readers.Common;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
 using Kliskatek.SenseId.Sdk.Readers.Scanner;
 using Microsoft.Extensions.DependencyInjection;
+using Kliskatek.SenseId.Sdk.Readers.Rfid;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Demo
 {
@@ -46,9 +44,9 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
 
             // Configure DI container
             _services
-                .AddKeyedScoped<ISenseIdReader, OctaneReader>(SupportedReaderLibraries.Octane)
-                .AddKeyedScoped<ISenseIdReader, NurApiReader>(SupportedReaderLibraries.NurApi)
-                .AddKeyedScoped<ISenseIdReader, Red4SReader>(SupportedReaderLibraries.RedRcp);
+                .AddKeyedScoped<ISenseIdReader, SenseIdOctaneReader>(SupportedReaderLibraries.Octane)
+                .AddKeyedScoped<ISenseIdReader, SenseIdNurApiReader>(SupportedReaderLibraries.NurApi)
+                .AddKeyedScoped<ISenseIdReader, SenseIdRedRcpReader>(SupportedReaderLibraries.RedRcp);
             _provider = _services.BuildServiceProvider();
 
             // Configure scanner
@@ -96,7 +94,6 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
         {
             Console.WriteLine($"New reader found : {e.ReaderType} @ {e.ConnectionString}");
         }
-
 
         private static void ReaderScan()
         {

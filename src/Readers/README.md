@@ -11,6 +11,7 @@ A library that helps acquiring data from SenseID tags using common readers.
 - [Installation](#installation)
 - [ISenseIdReader interface](#isenseidreader-interface)
   - [Data acquisition example](#data-acquisition-example)
+- [Reader scanner](#reader-scanner)
 - [License](#license)
 
 ## Installation
@@ -33,8 +34,8 @@ public interface ISenseIdReader
     SenseIdReaderInfo GetInfo();
     float GetTxPower();
     bool SetTxPower(float txPower);
-    bool[] GetAntennaConfig();
-    bool SetAntennaConfig(bool[] antennaConfigArray);
+    bool[] GetEnabledAntennas();
+    bool SetEnabledAntennas(bool[] enabledAntennaArray);
     bool StartDataAcquisitionAsync(SenseIdReaderCallback callback);
     bool StopDataAcquisitionAsync();
 }
@@ -42,19 +43,17 @@ public interface ISenseIdReader
 
 The following table lists the classes that implement _ISenseIdReader_ 
 
-| Technology | Manufacturer | Reader/SDK | SenseID.Readers class |
-|:----------:|:------------:|:----------:|:---------------------:|
-| Rain       | Impinj       | Octane     | OctaneReader          |
-| Rain       | NordicID     | NurApi     | NurApiReader          |
-| Rain       | Phychips     | RED4S      | Red4SReader           |
+| Technology | Manufacturer | Reader/SDK | SenseID.Readers class    |
+|:----------:|:------------:|:----------:|:------------------------:|
+| Rain       | Impinj       | Octane     | SenseIdOctaneReader      |
+| Rain       | NordicID     | NurApi     | SenseIdNurApiReader      |
+| Rain       | Phychips     | REDRCP     | SenseIdRedRcpRed4SReader |
 
 ### Data acquisition example
 
 ```csharp
 using Kliskatek.SenseId.Sdk.Readers.Common;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj;
-using Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips;
+using Kliskatek.SenseId.Sdk.Readers.Rfid;
 
 namespace Kliskatek.SenseId.Sdk.Readers.Demo
 {
@@ -64,13 +63,13 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
         {
             Console.WriteLine("Kliskatek SenseID.SDK.Readers demo");
 
-            //var reader = (ISenseIdReader)new OctaneReader();
+            //var reader = (ISenseIdReader)new SenseIdOctaneReader();
             //if (!reader.Connect("192.168.17.246"))
             //    return;
-            //var reader = (ISenseIdReader)new NurApiReader();
+            //var reader = (ISenseIdReader)new SenseIdNurApiReader();
             //if (!reader.Connect("ser://com9"))
             //    return;
-            var reader = (ISenseIdReader)new Red4SReader();
+            var reader = (ISenseIdReader)new SenseIdRedRcpReader();
             if (!reader.Connect("COM4"))
                 return;
 
@@ -91,6 +90,39 @@ namespace Kliskatek.SenseId.Sdk.Readers.Demo
 }
 ```
 
+## Reader scanner
+
+The library contains a scanner class that helps identifying supported readers attached to the computer or the LAN.
+
+The following code shows how to instantiate the scanner and start and stop the scanning process.
+
+```csharp
+using Kliskatek.SenseId.Sdk.Readers.Scanner;
+
+var scanner = new ReaderScanner();
+scanner.StartScan();
+// user defined delay
+scanner.StopScan();
+```
+
+The scanner object notifies that a new reader has been found by means of a event:
+
+```csharp
+scanner.NewReaderFound += OnNewReaderFound;
+
+private static void OnNewReaderFound(object sender, FoundReaderEventArgs e)
+{
+    Console.WriteLine($"New reader of type {e.ReaderType} found with connection string {e.ConnectionString}");
+}
+```
+
+It is possible to get the found reader list of the scanner object at any moment by calling the _GetFoundReaders_ method
+
+```csharp
+var foundReaders = scanner.GetFoundReaders();
+foreach (var foundReader in foundReaders)
+    Console.WriteLine($" * Reader type {foundReader.ReaderType} found with connection string {foundReader.ConnectionString}");
+```
 
 ## License
 

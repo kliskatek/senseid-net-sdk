@@ -2,9 +2,9 @@
 using Kliskatek.SenseId.Sdk.Readers.Common;
 using Serilog;
 
-namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj
+namespace Kliskatek.SenseId.Sdk.Readers.Rfid
 {
-    public class OctaneReader : SenseIdReaderBase
+    public class SenseIdOctaneReader : SenseIdReaderBase
     {
         private ImpinjReader _reader = null;
         private Settings _settings = null;
@@ -112,17 +112,17 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Impinj
             }
         }
 
-        protected override bool SetAntennaConfigLowLevel(bool[] antennaConfigArray)
+        protected override bool SetEnabledAntennasLowLevel(bool[] antennaConfigArray)
         {
             try
             {
                 for (int i = 0; i < ReaderInfo.AntennaCount; i++)
                     _settings.Antennas.GetAntenna((ushort)(i + 1)).IsEnabled =
-                        (i < antennaConfigArray.Length && antennaConfigArray[i]);
+                        i < antennaConfigArray.Length && antennaConfigArray[i];
                 _reader.ApplySettings(_settings);
 
-                for (int i = 0; i < AntennaConfig.Length; i++)
-                    AntennaConfig[i] = (i < antennaConfigArray.Length && antennaConfigArray[i]);
+                for (int i = 0; i < EnabledAntennas.Length; i++)
+                    EnabledAntennas[i] = i < antennaConfigArray.Length && antennaConfigArray[i];
 
                 Log.Information("Enabled antennas updated");
                 return true;

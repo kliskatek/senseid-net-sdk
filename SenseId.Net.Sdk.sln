@@ -21,7 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{721B0F
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdk", "src\Sdk\Sdk.csproj", "{2329C978-6F7B-4131-87A4-4DAC6DA36959}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sdk", "src\Sdk\Sdk.csproj", "{2329C978-6F7B-4131-87A4-4DAC6DA36959}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readers.SimpleDemo", "examples\Readers.SimpleDemo\Readers.SimpleDemo.csproj", "{BDAF4BFC-6448-4E44-A7B6-201F0077F6B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readers.ScannerDemo", "examples\Readers.ScannerDemo\Readers.ScannerDemo.csproj", "{C8DC93E8-E555-4FCD-88ED-5CC992AE68EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{2329C978-6F7B-4131-87A4-4DAC6DA36959}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2329C978-6F7B-4131-87A4-4DAC6DA36959}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2329C978-6F7B-4131-87A4-4DAC6DA36959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAF4BFC-6448-4E44-A7B6-201F0077F6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAF4BFC-6448-4E44-A7B6-201F0077F6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAF4BFC-6448-4E44-A7B6-201F0077F6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAF4BFC-6448-4E44-A7B6-201F0077F6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DC93E8-E555-4FCD-88ED-5CC992AE68EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DC93E8-E555-4FCD-88ED-5CC992AE68EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DC93E8-E555-4FCD-88ED-5CC992AE68EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DC93E8-E555-4FCD-88ED-5CC992AE68EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

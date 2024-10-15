@@ -2,9 +2,9 @@
 using NurApiDotNet;
 using Serilog;
 
-namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic
+namespace Kliskatek.SenseId.Sdk.Readers.Rfid
 {
-    public class NurApiReader : SenseIdReaderBase
+    public class SenseIdNurApiReader : SenseIdReaderBase
     {
         private NurApi _reader = null;
         protected NurApi.InventoryExFilter[] _inventoryFilterArray;
@@ -12,7 +12,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic
         private SenseIdReaderCallback _callback;
         private AutoResetEvent mConnectedEvent = new AutoResetEvent(false);
 
-        public NurApiReader()
+        public SenseIdNurApiReader()
         {
             // Add serial port support. 
             // NOTE: Needs NordicID.NurApi.SerialTransport reference
@@ -117,7 +117,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic
             }
         }
 
-        protected override bool SetAntennaConfigLowLevel(bool[] antennaConfigArray)
+        protected override bool SetEnabledAntennasLowLevel(bool[] antennaConfigArray)
         {
             try
             {
@@ -135,8 +135,8 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Nordic
                 setup.antennaMask = antennaMask;
                 _reader.SetModuleSetup(NurApi.SETUP_ANTMASK | NurApi.SETUP_SELECTEDANTENNA, ref setup);
 
-                for (int i = 0; i < AntennaConfig.Length; i++)
-                    AntennaConfig[i] = (i < antennaConfigArray.Length && antennaConfigArray[i]);
+                for (int i = 0; i < EnabledAntennas.Length; i++)
+                    EnabledAntennas[i] = i < antennaConfigArray.Length && antennaConfigArray[i];
                 return true;
             }
             catch (Exception e)

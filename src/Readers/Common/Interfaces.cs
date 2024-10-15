@@ -12,9 +12,9 @@
 
         bool SetTxPower(float txPower);
 
-        bool[] GetAntennaConfig();
+        bool[] GetEnabledAntennas();
 
-        bool SetAntennaConfig(bool[] antennaConfigArray);
+        bool SetEnabledAntennas(bool[] enabledAntennaArray);
 
         bool StartDataAcquisitionAsync(SenseIdReaderCallback callback);
 

@@ -3,9 +3,9 @@ using Kliskatek.Driver.Rain.REDRCP.Transports;
 using Kliskatek.SenseId.Sdk.Readers.Common;
 using Newtonsoft.Json;
 
-namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
+namespace Kliskatek.SenseId.Sdk.Readers.Rfid
 {
-    public class Red4SReader : SenseIdReaderBase
+    public class SenseIdRedRcpReader : SenseIdReaderBase
     {
         private REDRCP _reader;
         private SenseIdReaderCallback _callback;
@@ -20,15 +20,36 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
             if (!_reader.Connect(JsonConvert.SerializeObject(parameters)))
                 return false;
             _reader.NewNotificationReceived += OnNewNotificationReceived;
+            if (!SetAntiCollisionMode())
+                return false;
             if (!SetQueryDefaultParameters())
                 return false;
-                
+
             return true;
+        }
+
+        private bool SetAntiCollisionMode()
+        {
+            var result = _reader.SetAntiCollisionMode(new AntiCollisionModeParameters
+            {
+                Mode = AntiCollisionMode.Manual,
+                QStart = 4,
+                QMin = 2,
+                QMax = 7
+            });
+            var error = _reader.GetLastError();
+            return (_reader.SetAntiCollisionMode(new AntiCollisionModeParameters
+            {
+                Mode = AntiCollisionMode.Manual,
+                QStart = 4,
+                QMin = 0,
+                QMax = 7
+            }) == RcpResultType.Success);
         }
 
         private bool SetQueryDefaultParameters()
         {
-            return (_reader.SetTypeCaiQueryParameters(new TypeCaiQueryParameters
+            return _reader.SetTypeCaiQueryParameters(new TypeCaiQueryParameters
             {
                 Dr = ParamDr.Dr64Div3,
                 Modulation = ParamModulation.Miller4,
@@ -38,7 +59,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
                 Target = ParamTarget.A,
                 Toggle = ParamToggle.EveryInventoryRound,
                 Q = 4
-            }) == RcpResultType.Success);
+            }) == RcpResultType.Success;
         }
 
         protected override bool DisconnectLowLevel()
@@ -72,7 +93,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
             return _reader.SetTxPowerLevel(txPower) == RcpResultType.Success;
         }
 
-        protected override bool SetAntennaConfigLowLevel(bool[] antennaConfigArray)
+        protected override bool SetEnabledAntennasLowLevel(bool[] antennaConfigArray)
         {
             var antennaSequence = new List<byte>();
             byte antennaEnableMask = 0x01;
@@ -83,18 +104,18 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid.Phychips
                     antennaSequence.Add((byte)(antennaEnableMask << antennaIndex));
                 antennaIndex++;
             }
-            return (_reader.SetMultiAntennaSequence(antennaSequence) == RcpResultType.Success);
+            return _reader.SetMultiAntennaSequence(antennaSequence) == RcpResultType.Success;
         }
 
         protected override bool StartDataAcquisitionAsyncLowLevel(SenseIdReaderCallback callback)
         {
             _callback = callback;
-            return (_reader.StartAutoRead2() == RcpResultType.Success);
+            return _reader.StartAutoRead2() == RcpResultType.Success;
         }
 
         protected override bool StopDataAcquisitionAsyncLowLevel()
         {
-            return (_reader.StopAutoRead2() == RcpResultType.Success);
+            return _reader.StopAutoRead2() == RcpResultType.Success;
         }
 
         private void OnNewNotificationReceived(object? sender, NotificationEventArgs e)

@@ -11,7 +11,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
         protected ReaderStatus ReaderStatus = ReaderStatus.Idle;
         protected SenseIdReaderInfo ReaderInfo = new SenseIdReaderInfo();
         protected float TxPower = 0;
-        protected bool[] AntennaConfig = new bool[] { false };
+        protected bool[] EnabledAntennas = new bool[] { false };
 
         private bool[] GetInitialAntennaConfig()
         {
@@ -37,8 +37,8 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
                     if (!GetReaderInfo())
                         return false;
                     SetTxPowerLowLevel(ReaderInfo.MaxTxPower);
-                    AntennaConfig = new bool[ReaderInfo.AntennaCount];
-                    SetAntennaConfigLowLevel(GetInitialAntennaConfig());
+                    EnabledAntennas = new bool[ReaderInfo.AntennaCount];
+                    SetEnabledAntennasLowLevel(GetInitialAntennaConfig());
                     ConnectionStatus = ReaderConnectionStatus.Connected;
                     ReaderStatus = ReaderStatus.Idle;
                     return true;
@@ -105,13 +105,13 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
             }
         }
 
-        public bool[] GetAntennaConfig()
+        public bool[] GetEnabledAntennas()
         {
             lock (CommandExecutionLock)
-                return AntennaConfig;
+                return EnabledAntennas;
         }
 
-        public bool SetAntennaConfig(bool[] antennaConfigArray)
+        public bool SetEnabledAntennas(bool[] enabledAntennaArray)
         {
             lock (CommandExecutionLock)
             {
@@ -120,10 +120,10 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
                     Log.Warning("Can not change antenna configuration of an unconnected reader");
                     return false;
                 }
-                //if (ReaderStatus != ReaderStatus.BusyInventory) return SetAntennaConfigLowLevel(antennaConfigArray);
+                //if (ReaderStatus != ReaderStatus.BusyInventory) return SetEnabledAntennasLowLevel(enabledAntennaArray);
                 //Log.Warning("Reader must be idle before changing antenna configuration");
                 //return false;
-                return SetAntennaConfigLowLevel(antennaConfigArray);
+                return SetEnabledAntennasLowLevel(enabledAntennaArray);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Kliskatek.SenseId.Sdk.Readers.Rfid
         protected abstract bool DisconnectLowLevel();
         protected abstract bool GetReaderInfo();
         protected abstract bool SetTxPowerLowLevel(float txPower);
-        protected abstract bool SetAntennaConfigLowLevel(bool[] antennaConfigArray);
+        protected abstract bool SetEnabledAntennasLowLevel(bool[] antennaConfigArray);
         protected abstract bool StartDataAcquisitionAsyncLowLevel(SenseIdReaderCallback callback);
         protected abstract bool StopDataAcquisitionAsyncLowLevel();
     }
