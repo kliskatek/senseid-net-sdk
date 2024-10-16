@@ -35,7 +35,7 @@
     <PackageReference Include="NordicID.NurApi.Net" Version="6.0.0" />
     <PackageReference Include="NordicID.NurApi.SerialTransport" Version="4.0.5" />
     <PackageReference Include="OctaneSDK" Version="4.3.0" />
-    <PackageReference Include="REDRCP" Version="1.0.0-rc2" />
+    <PackageReference Include="REDRCP" Version="1.0.0" />
     <PackageReference Include="Serilog" Version="4.0.2" />
     <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="Tmds.MDns" Version="0.8.0" />

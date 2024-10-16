@@ -1,10 +1,9 @@
 ﻿using Kliskatek.SenseId.Sdk.Parsers.Rain;
 using Kliskatek.SenseId.Sdk.Readers.Common;
-using Kliskatek.SenseId.Sdk.Readers.Scanner;
 using Microsoft.Extensions.DependencyInjection;
 using Kliskatek.SenseId.Sdk.Readers.Rfid;
 
-namespace Kliskatek.SenseId.Sdk.Readers.Demo
+namespace kk
 {
     // Adapted from https://github.com/NordicID/nur_sample_csharp
     internal class Program

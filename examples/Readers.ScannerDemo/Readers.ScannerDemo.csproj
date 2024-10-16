@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SenseID.Readers" Version="1.0.0-rc2" />
+    <PackageReference Include="SenseID.Readers" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
