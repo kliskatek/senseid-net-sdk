@@ -2,6 +2,7 @@
 using Kliskatek.SenseId.Sdk.Readers.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Kliskatek.SenseId.Sdk.Readers.Rfid;
+using Kliskatek.SenseId.Sdk.Readers.Scanner;
 
 namespace kk
 {
