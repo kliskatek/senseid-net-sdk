@@ -4,6 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Kliskatek.SenseId.Sdk.Readers.Rfid;
 using Kliskatek.SenseId.Sdk.Readers.Scanner;
 
+using System;
+using System.Collections.Generic;
+using System.Management;
+
 namespace kk
 {
     // Adapted from https://github.com/NordicID/nur_sample_csharp
@@ -40,6 +44,19 @@ namespace kk
 
         public static void Main(string[] args)
         {
+            ////using var searcher = new ManagementObjectSearcher(
+            ////    @"Select * From Win32_USBHub");
+            //using var searcher = new ManagementObjectSearcher(
+            //    @"Select * From Win32_USBControllerDevice");
+            //using ManagementObjectCollection collection = searcher.Get();
+            //foreach (var device in collection)
+            //{
+            //    //var kk = (string)device.GetPropertyValue("DeviceID");
+            //    //Console.WriteLine(kk);
+            //    var kk = device.GetPropertyValue("Dependent");
+            //    Console.WriteLine(kk);
+            //}
+
             Console.WriteLine("Kliskatek SenseID.SDK.Readers demo");
 
             // Configure DI container
@@ -260,6 +277,7 @@ namespace kk
                 Console.WriteLine($"SenseID data report");
                 Console.WriteLine($"  * Name = {parsedEpc.Name}");
                 Console.WriteLine($"  * Description = {parsedEpc.Description}");
+                Console.WriteLine($"  * Firmware version = {parsedEpc.FirmwareVersion}");
                 Console.WriteLine($"  * ID = 0x{parsedEpc.Id}");
                 foreach (var data in parsedEpc.Data)
                     Console.WriteLine($"    - [{data.Magnitude}] : {data.Value} {data.UnitLong}");
